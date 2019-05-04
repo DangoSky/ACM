@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll n,k;
+ll father[27543];
+struct yxt
+{
+	ll a,b,cost;
+}t[27543];
+bool cmp(yxt aa,yxt bb)
+{
+	return aa.cost<bb.cost;
+}
+ll findfather(ll q)
+{
+	if(father[q]!=q)   return father[q]=findfather(father[q]);
+	else   return q;
+}
+ll kruskal()
+{
+	ll ans=0,sum=0;
+	for(int i=1;i<=n;i++)
+	 {
+		father[i]=i;
+	 } 
+	 sort(t,t+k+1,cmp);       //数组下标是从1开始所以是t+k+1，否则会wa 
+	 for(int i=1;i<=k;i++) 
+	 {
+	 	ll fa=findfather(t[i].a);
+	 	ll fb=findfather(t[i].b);
+	 	if(fa!=fb)  
+	 	{
+	 	    father[fa]=fb;
+			ans+=t[i].cost;	
+			sum++;
+		}
+	 }
+	 if(sum==n-1)  return ans;
+	 else return -1;
+}
+
+int main()
+{
+     while(scanf("%lld",&n)!=EOF)
+     {
+     	if(n==0)  break;
+     	scanf("%lld",&k);
+     	for(int i=1;i<=k;i++)
+     	{
+     		scanf("%lld %lld %lld",&t[i].a,&t[i].b,&t[i].cost); 
+		 }
+         printf("%lld\n",kruskal());
+	 }
+	 
+} 

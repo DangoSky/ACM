@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define  inf 999999999
+int mark[27543];
+ll d[143][154],dis[27543];
+ll n;
+ll prim()
+{
+	memset(dis,0x3f3f3f3f,sizeof(dis));
+	dis[1]=0;
+	ll ans=0;
+	for(int i=1;i<=n;i++)
+	   {
+	   	  ll min=inf,index=-1;
+	   	  for(int t=1;t<=n;t++)
+	   	  {
+	   	  	if(mark[t]==0&&dis[t]<min)
+	   	  	{
+	   	  		min=dis[t];
+	   	  		index=t;
+			 }
+		  }
+		  if(index==-1)   break;
+		  mark[index]=1;
+		  ans+=dis[index];
+		  for(int t=1;t<=n;t++)
+		  {
+		  	if(mark[t]==0&&d[index][t]<dis[t]&&d[index][t]<inf)
+		  	  {
+		  		dis[t]=d[index][t];
+			  }
+		  }
+	   }
+	   return ans;
+}
+
+int main()
+{
+	while(scanf("%lld",&n)!=EOF)
+	{
+	   memset(mark,0,sizeof(mark));
+	   memset(d,0x3f3f3f3f,sizeof(d));
+	   for(int i=1;i<=n;i++)
+	   {
+	   	 for(int t=1;t<=n;t++)
+	   	  {
+	   		scanf("%lld",&d[i][t]);
+	   		d[t][i]=d[i][t];
+		  }
+	   }	
+	   cout<<prim()<<endl;
+	   
+	} 
+ } 

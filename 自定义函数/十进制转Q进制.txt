@@ -1,0 +1,13 @@
+unsigned long long yxt(unsigned long long a,int t)
+{
+   unsigned long long b[1000], s=0;
+   int n=0;
+   do
+     {
+       b[n++] = a%t;
+        a /= t;
+     } while (a);
+    for (int i = n-1 ; i >= 0; i--)
+         s=s*10+b[i];
+    return s;
+}

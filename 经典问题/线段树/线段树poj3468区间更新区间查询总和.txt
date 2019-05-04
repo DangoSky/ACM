@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll tree[327543],lazy[327543];   //大约是n的四倍，数组小了还会TLE 
+void build(int root,int nstart,int nend)
+{
+	lazy[root]=0;       //!!!
+	if(nstart==nend)  
+	{
+		scanf("%lld",&tree[root]);
+		return;
+	}
+	int mid=(nstart+nend)/2;
+	build(root*2,nstart,mid);
+	build(root*2+1,mid+1,nend);
+	tree[root]=tree[root*2]+tree[root*2+1];	    
+}
+void pushdown(int root,int nstart,int nend)
+{
+	int len=nend-nstart+1;
+	lazy[root*2]+=lazy[root];                  
+	tree[root*2]+=lazy[root]*(len-len/2);   //考虑到len为奇数的情况 
+	lazy[root*2+1]+=lazy[root];
+	tree[root*2+1]+=lazy[root]*(len/2);
+	lazy[root]=0;          //!!! 
+	return;
+}
+void update(int root,int nstart,int nend,int qstart,int qend,int add)
+{
+	if(qstart<=nstart&&qend>=nend)  
+	{
+		 tree[root]+=(nend-nstart+1)*add;
+		 lazy[root]+=add;
+		 return;
+	}
+	if(lazy[root]!=0)    
+	    pushdown(root,nstart,nend);
+	int mid=(nstart+nend)/2;
+	if(qstart<=mid)      update(root*2,nstart,mid,qstart,qend,add);
+	if(qend>mid)         update(root*2+1,mid+1,nend,qstart,qend,add);
+	tree[root]=tree[root*2]+tree[root*2+1];
+
+}
+ll query(int root,int nstart,int nend,int qstart,int qend)
+{
+	
+	if(qstart>nend||qend<nstart)  return 0;
+	else if(qstart<=nstart&&qend>=nend)  return tree[root];
+	if(lazy[root]!=0)  
+	     pushdown(root,nstart,nend);
+	ll s=0;
+	int mid=(nstart+nend)/2;
+	s+=query(root*2,nstart,mid,qstart,qend);
+	s+=query(root*2+1,mid+1,nend,qstart,qend);
+	return s;
+}
+int main()
+{
+       int n,Q;
+       while(scanf("%d%d",&n,&Q)!=EOF)
+       {
+       build(1,1,n);    
+       for(int i=0;i<Q;i++)
+        {
+    	  int L,R,S;
+    	  char c;
+    	  cin>>c;
+    	  if(c=='C')  
+    	  {
+    	  	scanf("%d%d%d",&L,&R,&S);
+    	  	update(1,1,n,L,R,S); 
+		  }
+    	  else if(c=='Q') 
+    	  {
+    	  	scanf("%d%d",&L,&R);
+    	  	printf("%lld\n",query(1,1,n,L,R));
+		  }
+		 }  
+	  }
+ } 

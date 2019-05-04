@@ -1,0 +1,12 @@
+long long yxt(long long a,long long b)
+{
+ 	long long s=1;
+ 	long long t=a;
+     while (b)
+ 	{	t=t%1000000007; 
+ 		if(b&1)  s=(s*t)%1000000007;
+ 		t=t*t;
+ 		b>>=1;
+	 }
+	 return s;
+ }

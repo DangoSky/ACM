@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+long long yxt(long long a,long long b)
+{
+ 	long long s=1;
+ 	long long t=a;
+     while (b)
+ 	{
+	 	t=t%mod; 
+ 		if(b&1)  s=(s*t)%mod;
+ 		t=t*t;
+ 		b>>=1;
+	 }
+	 return s;
+ }
+ long long sum(long long n,long long k)
+ {
+ 	if(k==1)  return n;
+ 	long long s=sum(n,k/2);
+ 	if(k%2==0)
+ 		{
+ 			long long mid=yxt(n,k/2);
+ 			s=(s+(mid*s)%mod)%mod;
+		 }
+	 else 
+		 {
+		 	long long mid=yxt(n,k/2+1);
+		 	s=(s+(s*mid)%mod)%mod;
+		    s=(s+mid)%mod;
+		 }
+	 return s;
+ }
+int main()
+{
+     long long n,k;
+     while(scanf("%lld%lld",&n,&k)!=EOF)
+     {
+     	cout<<sum(n,k)<<endl;
+	 }
+
+}

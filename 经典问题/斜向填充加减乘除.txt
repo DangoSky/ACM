@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+     int T;
+     cin>>T;
+     for(int ii=1;ii<=T;ii++)
+     {
+     	char a[500][500];
+     	memset(a,0,sizeof(a));
+     	int n;
+     	cin>>n;
+     	int s=1;
+     	int q=n;
+     	int time=1;
+     	while(a[n][1]=='\0')
+     	{	
+     	if(time%2)
+     	{
+     	  int xx=1;	 
+		  for(int i=time;i<=n;i++)
+     	   {
+     		if(s%4==1)        {a[i][xx]='+';s++;}
+     		else if(s%4==2)   {a[i][xx]='-';s++;}
+     		else if(s%4==3)   {a[i][xx]='*';s++;}
+     		else if(s%4==0)   {a[i][xx]='/';s++;}
+     		xx++;
+     	   }
+		}	
+    	else 
+    	{		
+    	  int yy=n;	
+     	  for(int t=q;t>=1;t--)
+     	   {
+     	   
+     		if(s%4==1)        {a[yy][t]='+';s++;}
+     		else if(s%4==2)   {a[yy][t]='-';s++;}
+     		else if(s%4==3)   {a[yy][t]='*';s++;}
+     		else if(s%4==0)   {a[yy][t]='/';s++;}
+     		yy--;
+		   }
+		}   
+		 q--;
+		 time++;
+	    }
+	    for(int i=1;i<=n;i++)
+	    {
+	    	for(int t=1;t<=i;t++)	   
+			   {
+			   	cout<<(char)a[i][t];
+			   	if(i<=n)  cout<<" ";
+			   }
+	    	cout<<endl;
+		}
+		if(ii!=T)    cout<<endl;
+	 }
+}

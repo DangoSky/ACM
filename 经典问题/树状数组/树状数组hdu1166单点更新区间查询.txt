@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define lowbit(x) x&(-x)
+int a[127543];
+int n;
+void update(int t,int add)
+{
+	for(int i=t;i<=n;i+=lowbit(i))
+	{
+		a[i]+=add;
+	}
+}
+int getsum(int t)
+{
+	int s=0;
+	for(int i=t;i>0;i-=lowbit(i))
+	{
+		s+=a[i];
+	}
+	return s;
+}
+int main()
+{
+    int T;
+    scanf("%d",&T);
+    int count=1;
+    while(T--)
+    {
+    	memset(a,0,sizeof(a));
+        scanf("%d",&n);
+        int aa;
+        for(int i=1;i<=n;i++)
+        {
+        	scanf("%d",&aa);
+        	update(i,aa);
+		}         
+        char q[54];      
+        printf("Case %d:\n",count);
+        count++;
+        while(cin>>q)
+        {
+            if(strcmp(q,"End")==0)  break;
+            int x,y;
+            scanf("%d%d",&x,&y);           
+            if(strcmp(q,"Add")==0)         update(x,y);
+            else if(strcmp(q,"Sub")==0)    update(x,-y);
+            else if(strcmp(q,"Query")==0)  printf("%d\n",getsum(y)-getsum(x-1));
+        }
+    }
+ } 

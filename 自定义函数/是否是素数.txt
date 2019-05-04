@@ -1,0 +1,34 @@
+bool judge(int a)
+{
+	for(int i=2;i<=sqrt(a);i++)
+      {
+         	if(a%i==0)  return false;
+       }
+	  return true;
+}
+
+int k=0,a[127543];
+for(int i=2;i<=100000;i++)
+ {
+     if(judge(i)==true)  
+	 a[k++]=i;		   	
+ }  
+
+
+
+ËØÊıÉ¸·¨£º
+
+   int a[1000010];
+   bool p[1000010];
+   int k=0;
+   for(int i=2;i<=1000000;i++)
+      {
+      	  if(p[i]==false)
+      	  {
+      	  	a[k++]=i;
+      	  	for(int j=i+i;j<=1000000;j+=i)
+      	  	{
+      	  		p[j]=true;
+		}
+	 }	   	
+      }  

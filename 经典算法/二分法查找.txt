@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+#define NUM 10
+int search(int value[], int key, int low, int high);
+int main()
+{
+	int value[NUM], result, key;
+	int i;
+	cout<<"请输入十个从大到小的有序数列:"<<endl;
+	for (i=0; i<NUM; i++)
+		cin>>value[i]; /* 输入从大到小的有序数列*/
+	cout<<"请输入其中一个元素值:"<<endl;
+	cin>>key; /* 输入待查找的数值*/
+	result=search(value, key, 0, NUM-1); /*调用二分查找函数进行查找*/
+	if(result!=-1)
+		cout<<"第"<<result<<"个元素是："<<key<<endl;
+	else
+		cout<<"不能找到"<<key<<endl;
+}
+int search(int value[], int key, int low, int high)
+{	
+int mid;
+if (low>high)         return -1; /*查找区间为空*/
+mid=(high+low)/2;        /*求中间位置*/
+if (value[mid]==key)  return key=mid+1;/*得到查找的数据位置*/
+if(key<value[mid])    return search(value, key, mid+1, high);  /*在下半区查找*/
+else                  return search(value, key, low, mid-1);
+}

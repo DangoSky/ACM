@@ -1,0 +1,67 @@
+hdu1503：按顺序输出两个子串的最长公共子序列及两串的其他部分。
+
+#include <bits/stdc++.h>
+using namespace std; 
+int dp[2100][2100];
+char a[2754], b[2754];
+int lena,lenb;
+void lcs()
+{
+
+	int aa=lena,bb=lenb;
+	int a1[2754],b1[2754];
+	memset(a1,0,sizeof(a1));
+	memset(b1,0,sizeof(b1));
+	while(aa!=0&&bb!=0)
+	{
+		if(a[aa-1]==b[bb-1]&&dp[aa][bb]==dp[aa-1][bb-1]+1)
+		{
+			a1[aa-1]=1;
+			b1[bb-1]=1;
+			aa--;
+			bb--;
+		}
+		else if(dp[aa-1][bb]>dp[aa][bb-1])  aa--;
+		else   bb--;
+	}
+	aa=0,bb=0;
+	while(aa<lena|bb<lenb)
+	{
+		while(a1[aa]==0&&aa<lena)   
+		{
+			printf("%c",a[aa]);
+			aa++;
+		}
+		while(b1[bb]==0&&bb<lenb)
+		{
+			printf("%c",b[bb]);
+			bb++;
+		}
+		printf("%c",a[aa]);
+		aa++,bb++;
+	}
+	printf("\n"); 
+}
+int main()
+{ 
+	 while(scanf("%s%s",a,b)!=EOF)
+	 {
+		 lena=strlen(a);
+         lenb=strlen(b);
+		 for(int i=0,j=0;i<lena||j<lenb;i++,j++)
+		 {
+		 	dp[i][0]=0;
+		 	dp[0][j]=0;
+		 }
+		 for(int i=1;i<=lena;i++)
+		 {
+		 	for(int j=1;j<=lenb;j++)
+		 	{
+		 		if(a[i-1]==b[j-1])  	dp[i][j]=dp[i-1][j-1]+1;
+		 		else   dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+			 }
+		 }
+		 lcs();
+		
+	  } 
+}

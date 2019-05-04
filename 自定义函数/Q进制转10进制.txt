@@ -1,0 +1,12 @@
+unsigned long long yxt(int t,unsigned long long a)
+{
+   unsigned long long s = 0;
+    long long  k = 1;
+    while (a)
+      {
+         s = s + a % 10 * k;
+         k = t * k;
+         a /= 10;
+      }
+      return s;
+}

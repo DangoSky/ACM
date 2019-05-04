@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+int a[127543],tree[127543];
+int n;
+void build(int root,int nstart,int nend)
+{
+	if(nstart==nend)  tree[root]=a[nstart];
+	else 
+	{
+		int mid=(nstart+nend)/2;
+		build(root*2,nstart,mid);
+		build(root*2+1,mid+1,nend);
+		tree[root]=tree[root*2]+tree[root*2+1];
+	}
+}
+void update(int root,int nstart,int nend,int index,int add)
+{
+	if(nstart==nend)
+	{
+		if(index==nstart)  tree[root]+=add;
+	}
+	else 
+	{
+		int mid=(nstart+nend)/2;
+		if(index<=mid)   update(root*2,nstart,mid,index,add);
+		else    update(root*2+1,mid+1,nend,index,add);
+		tree[root]=tree[root*2]+tree[root*2+1];
+	}
+}
+int query(int root,int nstart,int nend,int qstart,int qend)
+{
+	int s=0;
+	if(qstart>nend||qend<nstart)  return 0;
+	else if(qstart<=nstart&&qend>=nend)  return tree[root];
+	int mid=(nstart+nend)/2;
+	s+=query(root*2,nstart,mid,qstart,qend);
+	s+=query(root*2+1,mid+1,nend,qstart,qend);
+	return s;
+}
+int main()
+{
+    int T;
+    scanf("%d",&T);
+    int count=1;
+    while(T--)
+    {
+    	scanf("%d",&n);
+    	for(int i=1;i<=n;i++)
+    	  scanf("%d",&a[i]);
+    	build(1,1,n);
+    	char q[54];  	
+    	printf("Case %d:\n",count);
+    	count++;
+    	while(~scanf("%s",q))
+    	{
+    		if(strcmp(q,"End")==0)  break;
+    		if(strcmp(q,"Add")==0) 
+    		{
+    			int index,add;
+    			scanf("%d%d",&index,&add);
+    			update(1,1,n,index,add);
+			}
+			else if(strcmp(q,"Sub")==0) 
+			{
+				int index,add;
+    			scanf("%d%d",&index,&add);
+    			update(1,1,n,index,-add);
+			}
+			else if(strcmp(q,"Query")==0)
+			{
+		    	int qstart,qend;
+    			scanf("%d%d",&qstart,&qend);
+    			printf("%d\n",query(1,1,n,qstart,qend));
+			}
+		}
+	}
+ } 

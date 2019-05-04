@@ -1,0 +1,10 @@
+int yxt(int x)
+{
+	int digit=0;
+	 while(x)
+	 {
+		digit++;
+		x/=10;
+	}  
+	return digit;
+}

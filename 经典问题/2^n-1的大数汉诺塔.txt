@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main()
+{
+   ll n;
+   while(cin>>n)
+   {
+   	  int a[127543];
+   	  memset(a,0,sizeof(a));
+   	  a[0]=1;
+   	  int flag=1;
+   	  while(n--)
+   	  {
+   	  	  for(int i=0;i<flag;i++)
+		     a[i]*=2;
+	      for(int i=0;i<flag;i++)
+         	{
+         		if(i==flag-1&&a[i]>=10)  flag++;
+	        	if(a[i]>=10)  
+	 	           {
+	                 a[i+1]++;
+		             a[i]-=10;	
+		           }    
+	        }
+       }
+ 
+	 if(a[0]==0)
+      {
+      	 a[0]=9;
+      	 int tem=1;
+      	 while(a[tem]==0)
+      	   {
+      	 	a[tem]=9;
+      	 	tem++;
+		   }
+		   a[tem]--;
+		   if(a[tem]==1&&tem+1==flag)      	flag--;
+	  }
+	 else a[0]--;
+
+	
+  		
+    int start=0;
+    for(int i=flag;i>=0;i--)
+    {
+    	if(a[i]!=0)  start=1;
+    	if(start==1)  cout<<a[i];
+	}
+	cout<<endl;
+   }
+
+ } 

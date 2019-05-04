@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+     int n;
+	 while(cin>>n)
+	 {
+	 	for(int i=1;i<=n/2;i++)
+	 	{
+	 		for(int t=1;t<=n;t++)
+	 		{
+	 			if(t>=n/2-i+2&&t<=n/2+i)  cout<<'D';
+	 			else cout<<'*';
+			 }
+			 cout<<endl;
+		 }
+		 
+		 for(int t=1;t<=n;t++)
+		      cout<<'D';
+		  cout<<endl;
+		 int tt=n/2-1;
+		for(int i=1;i<=n/2;i++)
+	 	{
+	 		for(int t=1;t<=n;t++)
+	 		{
+	 			if(t>=n/2+1-tt&&t<=n/2+1+tt)  cout<<'D';
+	 			else cout<<'*';
+			 }
+			 tt--;
+			 cout<<endl;
+		 }
+		 
+		
+	 }
+}

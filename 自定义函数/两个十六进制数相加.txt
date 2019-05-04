@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std; 
+int main()
+{
+   char a[27543],b[27543];
+   while(scanf("%s %s",a,b)!=EOF)
+   {
+   	 int lena=strlen(a);
+	 int lenb=strlen(b); 
+
+	 int k=1;
+	 long long s=0;
+   	 for(int i=lena-1;i>=0;i--)
+   	 {
+   	 	    if(a[i]>=97)  a[i]=a[i]-97+10; 
+   	 	    else if(a[i]>=65)  a[i]=a[i]-65+10;
+   	 	    else if(a[i]>=48)  a[i]=a[i]-48;
+   	 		s+=a[i]*k; 
+   	 	    k*=16;
+	 }
+	 long long ss=0;
+	 int kk=1;
+	 for(int i=lenb-1;i>=0;i--)
+	 {
+	 	if(b[i]>=97)  b[i]=b[i]-97+10; 
+   	    else if(b[i]>=65)  b[i]=b[i]-65+10;
+   	     else if(b[i]>=48)  b[i]=b[i]-48;
+	 	ss+=b[i]*kk;
+	 	kk*=16;
+	 }	
+     long long sum=ss+s;
+	 cout<<sum<<endl;
+  }
+
+    
+}

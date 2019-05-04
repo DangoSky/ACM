@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace  std;
+typedef long long ll;
+ll a[2754][2754];
+ll sum[2754];
+void bell ()
+{
+ //   memset(sum,0,sizeof(sum));
+	for(int i=0;i<=2000;i++)
+	{
+		a[i][0]=0;
+		a[i][i]=1;
+	}
+	for(int i=0;i<=2000;i++)
+	{
+		sum[i]=0;
+		for(int j=1;j<=i;j++)
+		{
+			a[i][j]=(j*a[i-1][j]+a[i-1][j-1])%1000;
+			sum[i]+=a[i][j];
+			sum[i]%=1000;
+		}
+	}
+}
+int main()
+{
+	bell();
+    ll t;
+    cin>>t;
+    while(t--)
+	{
+		ll n;
+		cin>>n;
+		cout<<sum[n]<<endl;
+	 } 
+}

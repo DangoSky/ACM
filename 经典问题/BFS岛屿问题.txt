@@ -1,0 +1,72 @@
+#include <iostream>
+#include <string.h>
+#include <queue>
+using namespace std;
+char a[144][144];
+bool b[144][144]={false};
+int X[8]={-1,-1,-1,0,0,1,1,1};
+int Y[8]={-1,0,1,-1,1,-1,0,1};
+int n,m;
+struct A
+{
+	int x,y;
+}q;
+bool judge(int x,int y)
+{
+	if(x>=n||x<0||y>=m||y<0)  return false;
+	if(b[x][y]==true||a[x][y]-48==0)   return false;
+	return true;
+} 
+void  bfs(int x,int y)
+{
+	queue<A>line;
+	q.x=x;
+	q.y=y;
+	line.push(q);
+	b[x][y]=true;
+	while(!line.empty())
+	{
+		A now=line.front();
+		line.pop();
+		for(int i=0;i<8;i++)
+		{
+		     int xx=now.x+X[i];
+		     int yy=now.y+Y[i];
+		     if(judge(xx,yy))
+		     {
+		     	 q.x=xx;
+		     	 q.y=yy;
+		     	 line.push(q);
+		     	 b[xx][yy]=true;
+			 }
+		}
+	}
+}
+int main()
+{
+	while(cin>>n>>m)
+	{
+		int s=0;
+		for(int i=0;i<n;i++)
+		{
+			for(int t=0;t<m;t++)
+			  {
+			  	cin>>a[i][t];
+			   } 
+		}
+		for(int i=0;i<n;i++)
+		{
+			for(int t=0;t<m;t++)
+			  {
+			      if(a[i][t]-48==1&&b[i][t]==false) 
+			       {
+			       	s++;
+			    	bfs(i,t);
+			      }   
+			   } 
+		}
+		memset(b,0,sizeof(b));
+		memset(a,48,sizeof(a));
+		cout<<s<<endl;
+	}
+}

@@ -1,0 +1,8 @@
+ node* newnode(int t)
+	 {
+	 	node* Node=new node;
+	 	Node.data=t;
+	 	Node.lchild=NILL;
+	 	Node.rchild=NULL
+	 	return Node;
+    } 

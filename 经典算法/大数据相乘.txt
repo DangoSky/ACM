@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    char aa[27543],bb[27543];
+    while(scanf("%s%s",aa,bb)!=EOF)
+    {
+    	int a[27543],b[27543];
+        int numa=0,numb=0;
+    	for(int i=strlen(aa)-1;i>=0;i--)
+    	    a[numa++]=aa[i]-48;
+    	for(int i=strlen(bb)-1;i>=0;i--)
+    	   b[numb++]=bb[i]-48;
+    	int c[127543];
+    	memset(c,0,sizeof(c));
+    	for(int i=0;i<numa;i++)
+    	{
+    		for(int j=0;j<numb;j++)
+    		{
+    			c[i+j]+=a[i]*b[j];
+			}
+		}
+		int numc=numa+numb;
+		for(int i=0;i<numc;i++)
+		{
+			if(c[i]>=10)
+			{
+				c[i+1]+=c[i]/10;
+				c[i]=c[i]%10;
+			}
+		}
+		while(c[numc-1]>=10)
+		{
+			c[numc]=c[numc-1]/10;
+			c[numc-1]=c[numc-1]%10;
+			numc++;
+		}
+		for(int i=numc-1;i>=0;i--)
+		{
+			if(c[i]==0) numc--;
+			else  break;
+		}
+		if(numc==0)  
+		{
+			printf("0\n");
+			continue;
+		}
+		for(int i=numc-1;i>=0;i--)
+            printf("%d",c[i]);
+        printf("\n");
+	}
+}

@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	string a,b;
+	while(cin>>a>>b)
+	{
+	   bool judge=false;
+	   if((a.size()<b.size())||(a.size()==b.size()&&a[0]<b[0])) 
+	   {
+	   	  judge=true;
+	      string tem=b;
+	      b=a;
+	      a=tem;
+	   }  
+	   string s;
+	   int right,left;
+	   int t=-1,k=0;
+	   for(int i=a.size()-1,j=b.size()-1;i>=0||j>=0;i--,j--)
+	   {
+	   	    ++t;
+	   	    if(i>=0)    right=a[i]-48;
+	   	    else        right=0;
+	   	    if(j>=0)    left=b[j]-48;
+	   	    else        left=0;
+            if(right>=left)   s[t]=right-left+48;    
+            else     
+                 {
+                 	a[i-1]--;
+			        s[t]=right+10-left+48;
+		         }   
+	   }
+	   if(judge==true)   cout<<'-';
+	   int start=0;
+	    for(int i=t;i>=0;i--)
+	    {
+	      if(s[i]!='0')  start=1;
+		  if(start)     cout<<s[i];
+		}
+	    cout<<endl;
+	}
+ } 

@@ -1,0 +1,13 @@
+struct node
+	{
+		int data;
+		node* lchild;
+		node* rchild;
+	};	
+void preorder(node* root)
+     {
+     	if(root==NULL)  return ;
+     	printf("%d\n",root.data);
+     	preorder(root.lchild);
+     	preorder(root.rchild);
+	 }

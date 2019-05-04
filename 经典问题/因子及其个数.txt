@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool judge(int a)
+{
+	for(int i=2;i<=sqrt(a);i++)
+      {
+      	if(a%i==0)  return false;
+	  }
+	  return true;
+}
+struct yxt
+{
+	int result;
+	int count;
+}t[127543];
+bool cmp(yxt a,yxt b)
+{
+	return a.result<b.result;
+}
+int main()
+{    
+   
+	 int k=0,a[127543];
+      for(int i=2;i<=100000;i++)
+	  {
+	      if(judge(i)==true)  
+		  {
+		  	 a[k++]=i;		   
+		  }	
+	 }  
+	 int n;
+	 while(cin>>n)
+	 {
+	 
+	 	if(n==1)  
+		 {
+		 	cout<<1<<endl;
+		 	continue;
+		 }
+		 int q=0;
+		 for(int i=0;a[i]<=sqrt(n);i++)
+		 {
+		 
+		 		while(n%a[i]==0)
+		 		{
+		 			t[q++].result=a[i];
+		 		//	cout<<t[q-1].result<<endl;
+		 			n/=a[i];
+				 }
+		
+			 if(n==1)  break;
+		 }
+		 if(n!=1)  t[q++].result=n;
+		sort(t,t+q,cmp);
+		 for(int i=0;i<q;i++)
+		 {
+		 	if(i>0)  cout<<'*';
+		 	cout<<t[i].result;
+		 }
+		 cout<<endl;
+		 
+	  } 
+}

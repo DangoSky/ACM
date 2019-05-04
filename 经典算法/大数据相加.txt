@@ -1,0 +1,56 @@
+#include <stdio.h> 
+#include <string.h>
+#include <iostream> 
+#include <algorithm>
+using namespace std;
+int main()
+{
+    char a[100], b[100];
+    int  s[100];
+    memset(a, '0', sizeof(a));      
+    memset(b, '0', sizeof(b));
+    memset(s, 0, sizeof(s));
+    while (scanf("%s %s", a, b) != EOF)
+    {
+    	int length =max(strlen(a), strlen(b));      //找出最大的位数 
+        for (int i = 0; i < strlen(a) / 2; i++)
+            {
+                char q = a[i];
+                a[i] = a[strlen(a)-i-1];
+                a[strlen(a)-i-1] = q;
+            }                                  //把a数组里的元素翻转过来，后面才能进行从低位开始相加。 
+        for (int i = 0; i < strlen(b) / 2; i++)         
+        {
+                char q = b[i];
+                b[i] = b[strlen(b)-i-1];
+                b[strlen(b)-i-1] = q;         //把b数组里的元素翻转过来，后面才能进行从低位开始相加。
+        }
+        if (strlen(a) <= strlen(b))        //判断a和b哪个位数更多 
+    	{
+    		a[strlen(a)] = '0';         
+			a[length] = '\0';	        //把a和b的位数调到一样大，多余地设为0. 
+		}
+		else
+		{
+			b[strlen(b)] = '0';
+			b[length] = '\0';	
+		}
+        int k = 0;                 //k代表进位 
+        int t = -1;
+        for (int i = 0; i < strlen(a) || i < strlen(b); i++)
+        {
+            ++t;
+            s[t] = (a[i] - '0' + b[i] - '0' + k) % 10;    
+            k = (a[i] - '0' + b[i] - '0' + k) / 10;     //a[i]代表的是字符，是在用ASCII码在相加减，得减去48即'0'变成真实的数字 
+        }
+        if (k!=0) s[++t] = k;               //判断最高位相加后有无再进一位 
+        for(int i = t; i >= 0; i--)
+        {
+            if(i!=0)   printf("%d",s[i]);
+            else       printf("%d\n",s[i]);
+        }
+        memset(a, '0', sizeof(a));
+        memset(b, '0', sizeof(b));
+        memset(s, 0, sizeof(s));
+    }
+}

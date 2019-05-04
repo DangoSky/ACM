@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+#include <iostream>
+#include <string.h>
+#include <stdio.h>
+#include <queue>
+using namespace std;
+int a[144][144];
+bool b[144][144]={false};
+int X[5]={-1,0,0,1};
+int Y[5]={0,-1,1,0};
+int n,m,k;
+struct A
+{
+	int x,y,s;
+}start,end,q;
+bool judge(int x,int y)
+{
+	if(x>=n||x<0||y>=m||y<0)  return false;
+	if(b[x][y]==true||a[x][y]==-1||a[x][y]>=k)   return false;
+	return true;
+} 
+int BFS(void)
+{
+	queue<A>line;
+	line.push(start);
+	b[start.x][start.y]=true;
+	while(!line.empty())
+	{
+		A now=line.front();
+		line.pop();
+		if(now.x==end.x&&now.y==end.y)
+		{
+			return now.s;
+		}
+		for(int i=0;i<4;i++)
+		{
+		     int xx=now.x+X[i];
+		     int yy=now.y+Y[i];
+		     if(judge(xx,yy))
+		     {
+		     	 q.x=xx;
+		     	 q.y=yy;
+		     	 q.s=now.s+1;
+		     	 line.push(q);
+		     	 b[xx][yy]=true;
+			 }
+		}
+	}
+	return -1;
+}
+int main()
+{
+	while(cin>>n>>m>>k)
+	{
+		memset(b,0,sizeof(b));
+		memset(a,-1,sizeof(a));
+		for(int i=0;i<n;i++)
+		{
+			for(int t=0;t<m;t++)
+			  	cin>>a[i][t];
+		}
+		start.x=0;
+		start.y=0;
+		end.x=n-1;
+		end.y=m-1;
+		start.s=0;
+		int result=BFS();
+	    if(result==-1)  cout<<"No"<<endl;
+	    else           cout<<result<<endl;
+		memset(b,0,sizeof(b));
+		memset(a,-1,sizeof(a));
+	}
+}

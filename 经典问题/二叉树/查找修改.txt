@@ -1,0 +1,7 @@
+void search(node* root,int t,int newdata)
+    {
+    	if(root==NULL) return;
+		if(root.data==t)    root.data=newdata;
+		search(root.lchild,t,newdata);
+		search(root.rchild,t,newdata); 
+	}

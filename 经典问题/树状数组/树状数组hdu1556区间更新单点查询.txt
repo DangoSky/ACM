@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define lowbit(x) x&(-x)
+int a[127543];
+void update(int l,int n,int add)
+{
+	for(int i=l;i<=n;i+=lowbit(i))
+	{
+		a[i]+=add;
+	}
+}
+int getsum(int t)
+{
+	int s=0;
+	for(int i=t;i>0;i-=lowbit(i))
+	{
+		s+=a[i];
+	}
+	return s;
+}
+int main()
+{
+    int n;
+    while(scanf("%d",&n),n!=0)
+    {
+    	memset(a,0,sizeof(a));
+    	for(int i=1;i<=n;i++)
+    	{
+    		int l,r;
+    		scanf("%d%d",&l,&r);
+    		update(l,n,1);
+    		update(r+1,n,-1);
+		}
+		for(int i=1;i<=n;i++)
+		{
+			if(i==1)  printf("%d",a[i]);
+			else      printf(" %d",getsum(i));
+		}
+		printf("\n");
+	}
+    
+ } 

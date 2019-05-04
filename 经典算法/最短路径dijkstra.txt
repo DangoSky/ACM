@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define  Max 2754
+#define  inf 99999999999
+ll g[Max][Max];
+ll d[Max];
+ll n,m;
+bool sign[Max];
+void dijkstra(ll begin)
+{
+	d[begin]=0;
+	for(int i=0;i<n;i++)
+	{
+		ll tem=-1,mmin=inf;
+		for(int j=1;j<=n;j++)
+		{
+			if(sign[j]==false&&d[j]<mmin)
+			{
+				tem=j;
+				mmin=d[j];
+			}
+		}
+		if(tem==-1)  return ;
+		sign[tem]=true;
+		for(int j=1;j<=n;j++)
+		{
+			if(sign[j]==false&&g[tem][j]<inf&&d[tem]+g[tem][j]<d[j])   d[j]=g[tem][j]+d[tem]; 
+	    }
+	}
+}
+int main()
+{
+   while(cin>>m>>n)
+   {
+   	  memset(sign,false,sizeof(sign));
+   	  memset(d,0x3f3f3f3f,sizeof(d));
+	  memset(g,0x3f3f3f3f,sizeof(g)); 
+   	  ll u,v,w;
+   	  for(int i=0;i<m;i++)
+   	  {
+   	  	scanf("%lld%lld%lld",&u,&v,&w);
+   	  	if(g[u][v]>w)  	  	g[v][u]=g[u][v]=w;
+	  }
+	  dijkstra(1);
+	  printf("%lld\n",d[n]);
+   }
+}

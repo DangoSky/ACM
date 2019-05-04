@@ -1,0 +1,16 @@
+ll yxt()
+{
+    char t;
+    while(t=getchar(),t=='\n'||t==' ');
+    ll s=0;
+    int sign=1;
+    if(t=='-')  sign=-1;
+    else s=t-48;
+    while(t=getchar(),isdigit(t))
+    {
+    	
+    	s=s*10+t-'0';
+     }
+	s=s*sign;
+	return s;
+}

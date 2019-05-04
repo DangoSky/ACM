@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+char s[100]="Golden Global View Global abc";
+char l[100]="lob";
+char *p=s;
+while(p=strstr(p,l),p!=NULL)
+{
+  printf("%s\n",p);
+   *p='a';
+  printf("%s\n",p);
+   p=p+1; 
+  printf("%s\n",p);
+}
+} 

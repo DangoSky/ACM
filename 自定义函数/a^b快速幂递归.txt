@@ -1,0 +1,13 @@
+long long int yxt(long long x,long long y)
+{
+    long long s;
+    if (y == 0)      return  1;
+    else
+    {
+        if (y % 2 == 0)
+        {
+            long long t=yxt( x, y / 2);   return s =t* t ;
+        }
+        else    return  s=x* yxt( x, y -1 );
+    }
+}

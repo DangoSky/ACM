@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+using namespace std;
+int main()
+{
+    ll m;
+	cin>>m;
+	ll n;
+	scanf("%lld",&n);
+	ll a[27543],b[27543],dp[27543];
+	memset(a,0,sizeof(a));
+	memset(b,0,sizeof(b));
+	memset(dp,0,sizeof(dp));
+	for(int i=1;i<=n;i++)
+	{
+		ll t;
+		scanf("%lld",&t);
+		a[t]=i;
+	 } 
+	 ll k;
+	 scanf("%lld",&k);
+	 for(int i=1;i<=k;i++)
+	 {
+	 	ll t;
+	 	scanf("%lld",&t);
+	 	b[i]=a[t];
+	 }
+	 for(int i=1;i<=k;i++)
+	 {
+	 	if(b[i]>0)  dp[i]=1;
+	 }
+	 ll mmax=0;
+	 for(int i=1;i<=k;i++)
+	 {
+	 	if(dp[i]==0)  continue;
+	 	for(int q=1;q<i;q++)
+	 	{
+	 		if(b[i]>=b[q]) dp[i]=max(dp[i],dp[q]+1);
+	 		
+		 }
+		 if(dp[i]>mmax)  mmax=dp[i];
+	 }
+
+	 cout<<mmax<<endl;
+ } 
